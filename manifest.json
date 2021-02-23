@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "GitHub CR Toolbox",
+  "version": "1.0",
+  "description": "Floating tools to make code reviews on GitHub a little easier",
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/*/pull/*/files"],
+      "js": ["src/script.js"]
+    }
+  ],
+  "icons": {
+    "16": "src/icon-16.png",
+    "48": "src/icon-48.png",
+    "96": "src/icon-96.png",
+    "128": "src/icon-128.png"
+  }
+}

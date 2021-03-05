@@ -18,33 +18,7 @@
   // Add styles to document.head
   const styleEl = document.createElement("style");
   styleEl.setAttribute("data-gcrt", true);
-  styleEl.innerText = `
-      details[data-gcrt] {
-      	--border: 1px solid var(--color-border-primary);
-        background: var(--color-bg-primary);
-      	bottom: 0;
-        box-shadow: 0 0 8px hsla(0, 0%, 0%, 0.2);
-        left: 0;
-      	position: fixed;
-        right: 0;
-        z-index: 10000;
-      }
-
-      details[data-gcrt] > * {
-        padding: 8px;
-      }
-
-      details[data-gcrt] summary {
-      	background-color: var(--color-bg-secondary);
-        border-bottom: var(--border);
-        border-top: var(--border);
-      }
-
-      details[data-gcrt] footer {
-      	border-top: var(--border);
-        text-align: center;
-      }
-    `;
+  styleEl.innerText = "%CSS%";
   document.head.appendChild(styleEl);
 
   // Create details element

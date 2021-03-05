@@ -6,13 +6,13 @@
   "content_scripts": [
     {
       "matches": ["https://github.com/*/*/pull/*/files"],
-      "js": ["src/script.js"]
+      "js": ["dist/extension.js"]
     }
   ],
   "icons": {
-    "16": "src/icon-16.png",
-    "48": "src/icon-48.png",
-    "96": "src/icon-96.png",
-    "128": "src/icon-128.png"
+    "16": "dist/icon-16.png",
+    "48": "dist/icon-48.png",
+    "96": "dist/icon-96.png",
+    "128": "dist/icon-128.png"
   }
 }

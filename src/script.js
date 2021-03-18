@@ -12,7 +12,7 @@
   "use strict";
 
   // Your code here...
-  if (document.body.dataset.gcrt) return;
+  if (document.body.dataset.gcrt) return console.info('🧰 GitHub CR Toolbox already installed');
   document.body.setAttribute("data-gcrt", true);
 
   // Add styles to document.head
@@ -124,6 +124,20 @@
   //
   const toolboxFooter = document.createElement("footer");
   toolboxFooter.innerHTML =
-    "<small>Hacked together at Niche's Learn Over Lunch 🥪</small>";
+    "<small>Hacked together at <a href='https://niche.com' target='_blank'>Niche</a>'s Learn Over Lunch 🥪</small>";
   detailsEl.appendChild(toolboxFooter);
 })();
+
+/*
+// VIVAN'S EXTRA-SPECIAL HIGHLIGHTING (by VIVAN, for VIVAN)
+window.addEventListener('click', event=>{
+    if (event.target.classList.contains('pl-en')) {
+        document.querySelectorAll('.pl-en').forEach(node => {
+            if (node.textContent === event.target.textContent) {
+                node.style.fontWeight = '900'
+            }
+        })
+    }
+}
+)
+*/

@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Added changelog
+- Added Node.js build process
+- Absorbed external userscript dependency
+- Added console message when previously installed
 
 ## [1.0] - 2020/03/04
 

@@ -1,0 +1,15 @@
+{
+  "name": "github-cr-toolbox",
+  "version": "0.0.0--see-manifest.json",
+  "description": "🧰 Cross-browser extension that provides floating tools to make code reviews on GitHub a little easier",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "watchlist src -- npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "cssmin": "^0.4.3",
+    "terser": "^5.6.0",
+    "watchlist": "^0.2.3"
+  }
+}

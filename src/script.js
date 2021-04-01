@@ -12,7 +12,8 @@
   "use strict";
 
   // Your code here...
-  if (document.body.dataset.gcrt) return console.info('🧰 GitHub CR Toolbox already installed');
+  if (document.body.dataset.gcrt)
+    return console.info("🧰 GitHub CR Toolbox already installed");
   document.body.setAttribute("data-gcrt", true);
 
   // Add styles to document.head
@@ -120,6 +121,50 @@
       });
   });
   toolboxEl.appendChild(smartViewForm);
+
+  const highlightLabel = document.createElement("label");
+  const labelTextNode = document.createTextNode("Highlight token");
+  highlightLabel.appendChild(labelTextNode);
+  const highlightCheckbox = document.createElement("input");
+  highlightCheckbox.type = "checkbox";
+  highlightLabel.appendChild(highlightCheckbox);
+
+  const highlightStyle = document.createElement("style");
+  highlightStyle.dataset.gcrt = "highlight-style";
+  document.head.appendChild(highlightStyle);
+
+  highlightStyle.innerHTML = `
+    [data-gcrt="highlighted"] {
+      background-color: rgba(255, 255, 0, 50%);
+      font-weight: 900;
+    }
+  `;
+
+  const highlightedNodes = []
+
+  function highlightToken(event) {
+    highlightedNodes.forEach(node => node.removeAttribute('data-gcrt'))
+
+    const selector = "." + event.target.classList[0];
+    document.querySelectorAll(selector).forEach((node) => {
+      if (node.textContent === event.target.textContent) {
+        node.dataset.gcrt = "highlighted";
+        highlightedNodes.push(node)
+      }
+    });
+  }
+
+  highlightCheckbox.addEventListener("change", (event) => {
+    event.preventDefault();
+
+    if (event.target.checked) {
+      window.addEventListener("click", highlightToken);
+    } else {
+      window.removeEventListener("click", highlightToken);
+    }
+  });
+
+  toolboxEl.appendChild(highlightLabel);
 
   //
   const toolboxFooter = document.createElement("footer");

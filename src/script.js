@@ -12,7 +12,8 @@
   "use strict";
 
   // Your code here...
-  if (document.body.dataset.gcrt) return console.info('🧰 GitHub CR Toolbox already installed');
+  if (document.body.dataset.gcrt)
+    return console.info("🧰 GitHub CR Toolbox already installed");
   document.body.setAttribute("data-gcrt", true);
 
   // Add styles to document.head
@@ -120,6 +121,69 @@
       });
   });
   toolboxEl.appendChild(smartViewForm);
+
+  const highlightLabel = document.createElement("label");
+  const labelTextNode = document.createTextNode("Highlight token");
+  highlightLabel.appendChild(labelTextNode);
+  const highlightCheckbox = document.createElement("input");
+  highlightCheckbox.type = "checkbox";
+  highlightLabel.appendChild(highlightCheckbox);
+
+  const highlightStyle = document.createElement("style");
+  highlightStyle.dataset.gcrt = "highlight-style";
+  document.head.appendChild(highlightStyle);
+
+  highlightStyle.innerHTML = `
+    [data-gcrt="highlighted"] {
+      background-color: rgba(255, 255, 0, 50%);
+      font-weight: 900;
+    }
+  `;
+
+  const highlightedNodes = [];
+
+  function highlightToken(event) {
+    const { target } = event;
+    if (target.dataset.gcrt === "highlighted") {
+      // Unhighlight all highlighted nodes with matching class and text content
+      return highlightedNodes.forEach((node) => {
+        if (
+          node.classList.toString() === target.classList.toString() &&
+          node.textContent === target.textContent
+        ) {
+          node.removeAttribute("data-gcrt");
+        }
+      });
+    }
+
+    // Check first if event.target is within a code preview block
+    if (
+      !target.classList.contains("blob-code-inner") &&
+      !target.parentNode.classList.contains("blob-code-inner")
+    ) {
+      return;
+    }
+
+    const selector = "." + target.classList[0];
+    document.querySelectorAll(selector).forEach((node) => {
+      if (node.textContent === target.textContent) {
+        node.dataset.gcrt = "highlighted";
+        highlightedNodes.push(node);
+      }
+    });
+  }
+
+  highlightCheckbox.addEventListener("change", (event) => {
+    event.preventDefault();
+
+    if (event.target.checked) {
+      window.addEventListener("click", highlightToken);
+    } else {
+      window.removeEventListener("click", highlightToken);
+    }
+  });
+
+  toolboxEl.appendChild(highlightLabel);
 
   //
   const toolboxFooter = document.createElement("footer");

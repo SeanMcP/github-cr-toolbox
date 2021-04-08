@@ -140,16 +140,35 @@
     }
   `;
 
-  const highlightedNodes = []
+  const highlightedNodes = [];
 
   function highlightToken(event) {
-    highlightedNodes.forEach(node => node.removeAttribute('data-gcrt'))
+    const { target } = event;
+    if (target.dataset.gcrt === "highlighted") {
+      // Unhighlight all highlighted nodes with matching class and text content
+      return highlightedNodes.forEach((node) => {
+        if (
+          node.classList.toString() === target.classList.toString() &&
+          node.textContent === target.textContent
+        ) {
+          node.removeAttribute("data-gcrt");
+        }
+      });
+    }
 
-    const selector = "." + event.target.classList[0];
+    // Check first if event.target is within a code preview block
+    if (
+      !target.classList.contains("blob-code-inner") &&
+      !target.parentNode.classList.contains("blob-code-inner")
+    ) {
+      return;
+    }
+
+    const selector = "." + target.classList[0];
     document.querySelectorAll(selector).forEach((node) => {
-      if (node.textContent === event.target.textContent) {
+      if (node.textContent === target.textContent) {
         node.dataset.gcrt = "highlighted";
-        highlightedNodes.push(node)
+        highlightedNodes.push(node);
       }
     });
   }
